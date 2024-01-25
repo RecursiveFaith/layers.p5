@@ -1,0 +1,56 @@
+{
+  "name": "layers.p5",
+  "version": "0.3.0",
+  "description": "A layer-based p5.js framework with live editing and MIDI support",
+  "main": "dist/layers.p5.js",
+  "scripts": {
+    "start": "vuepress dev docs",
+    "new": "node ./node_scripts/newSketch.js",
+    "remix": "node ./node_scripts/remixSketch.js",
+    "delete": "node ./node_scripts/deleteSketch.js",
+    "build": "npm run build:lib && npm run build:docs",
+    "build:lib": "rollup --config rollup.config.js",
+    "build:docs": "vuepress build docs",
+    "build:test": "npm run build:docs && npm run test",
+    "deploy": "gh-pages -d docs/.vuepress/dist --repo https://github.com/layersp5/layersp5.github.io.git",
+    "test": "http-server docs/.vuepress/dist",
+    "postinstall": "node ./node_scripts/postinstall.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/layersp5/layers.p5.git"
+  },
+  "author": "Oz <git@ozramos.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/layersp5/layers.p5/issues"
+  },
+  "homepage": "https://layersp5.github.io",
+  "dependencies": {
+    "@tweakpane/plugin-essentials": "^0.1.4",
+    "emoji-name-map": "^1.2.9",
+    "fs-extra": "^11.1.1",
+    "gemoji": "^7.1.0",
+    "lodash-es": "^4.17.21",
+    "p5.capture": "^1.2.0",
+    "parallax-js": "^3.1.0",
+    "tweakpane": "^3.0.8",
+    "webmidi": "^3.0.20"
+  },
+  "devDependencies": {
+    "@rollup/plugin-replace": "^3.0.1",
+    "@vuepress/plugin-container": "^2.0.0-beta.48",
+    "@vuepress/plugin-register-components": "^2.0.0-beta.45",
+    "@vuepress/plugin-theme-data": "^2.0.0-beta.45",
+    "cpx": "^1.5.0",
+    "gh-pages": "^5.0.0",
+    "http-server": "^14.1.1",
+    "p5": "^1.6.0",
+    "rollup": "^2.67.0",
+    "rollup-plugin-external-globals": "^0.6.1",
+    "vuepress": "^2.0.0-beta.45"
+  },
+  "resolutions": {
+    "vite": "2.8.6"
+  }
+}
