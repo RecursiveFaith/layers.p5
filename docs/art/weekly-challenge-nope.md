@@ -3,6 +3,7 @@ layout: Art
 title: weekly-challenge-nope
 layers: 
   - '@weekly-challenge-nope/starfield'
+  - '@weekly-challenge-nope/boardwalk'
 ---
 <br>
 <!-- <div class="row">
