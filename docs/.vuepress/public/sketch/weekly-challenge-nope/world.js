@@ -1,44 +1,40 @@
+/**
+ * Don't forget to right click, toggle Layers, and visualize in 3D
+ */
 Layers.create(() => {
-  /**
-  * 3D World layer
-  */
   new Layer({
     id: 'world',
     renderer: WEBGL,
-    
-    // These automatically convert into sliders
-    // You can also bind with MIDI through right click!
-    menu: {
-    },
-    
-    // Non menu variables
-    // Access with $stars within draw(), setup()
-    // or with this.store.stars everywhere else
-    $: {
-    },
-    
-    setup () {
-    },
-    
-    // Each layer has own canvas
-    // but p5 methods magically point to correct canvas so no need for canvas.background()
+
     draw () {
       clear()
       noStroke()
 
       // Draw floor
+      // plane(minSize*2.5, height*4)
+      textureMode(NORMAL)
       push()
         texture(Layers.boardwalk.canvas)
         translate(0, minSize/2, -minSize*2)
         rotateX(PI/2)
-        plane(minSize*2.5, height*4)
+        beginShape()
+          vertex(-minSize * 1.25, -height * 2, 0, 0)
+          vertex(minSize * 1.25, -height * 2, .5, 0)
+          vertex(minSize * 1.25, height * 2, .5, 1)
+          vertex(-minSize * 1.25, height * 2, 0, 1)
+        endShape(CLOSE)
       pop()
 
       // Draw wall
       push()
         texture(Layers.boardwalk.canvas)
         translate(0, -minSize, -minSize*2)
-        plane(minSize*2.5, height*4)
+        beginShape()
+          vertex(-minSize * 1.25, -height * 2, 0, 0)
+          vertex(minSize * 1.25, -height * 2, .5, 0)
+          vertex(minSize * 1.25, height * 2, .5, 1)
+          vertex(-minSize * 1.25, height * 2, 0, 1)
+        endShape(CLOSE)
       pop()
 
       // Portal: Outer door
@@ -54,7 +50,13 @@ Layers.create(() => {
       push()
         texture(Layers.starfield.canvas)
         translate(0, 0, -minSize*1.8)
-        plane(minSize*2.5/2, height*4/2)
+        // plane(minSize*2.5/2, height*4/2)
+        beginShape()
+          vertex(-minSize * 2.5 / 2/2, -height * 4 / 2/2, 0.25, 0)
+          vertex(minSize * 2.5 / 2/2, -height * 4 / 2/2, 0.75, 0)
+          vertex(minSize * 2.5 / 2/2, height * 4 / 2/2, 0.75, 1)
+          vertex(-minSize * 2.5 / 2/2, height * 4 / 2/2, 0.25, 1)
+        endShape(CLOSE)
       pop()
     }
   })

@@ -28136,7 +28136,7 @@
       this.$ = globalThis.clone(this.opts.$);
 
       let bgMenu;
-      if (typeof this.presets.bg === 'number') {
+      if (typeof this.presets?.bg === 'number') {
         bgMenu = this.presets.bg;
       } else if (this.opts.bg) {
         bgMenu = this.opts.bg;

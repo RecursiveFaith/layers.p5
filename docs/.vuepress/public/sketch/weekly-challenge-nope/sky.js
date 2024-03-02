@@ -1,23 +1,21 @@
+// Here be dragons 🐉🤺
 // @see Shader adapted from: https://www.shadertoy.com/view/4tdSWr
 Layers.create(() => {
   new Layer({
     id: 'sky',
     renderer: WEBGL,
-    
-    // These automatically convert into sliders
-    // You can also bind with MIDI through right click!
-    menu: {
-    },
-    
-    // Non menu variables
-    // Access with $stars within draw(), setup()
-    // or with this.store.stars everywhere else
+
     $: {
       shader: null
     },
-    
+
     setup () {
-      $shader = createShader(`
+      $shader = createShader(
+        
+        
+/**
+ * Vertex
+ */`
 attribute vec3 aPosition;
 attribute vec2 aTexCoord;
 
@@ -31,10 +29,14 @@ void main() {
 }
       `,
 
-      /**
-       * Fragment
-       */
-      `
+                      
+                              
+                              
+                              
+/**
+ * Fragment
+ */
+`
 precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
@@ -86,7 +88,7 @@ void main() {
   vec2 uv = p*vec2(u_resolution.x/u_resolution.y,1.0);    
     float time = u_time * speed;
     float q = fbm(uv * cloudscale * 0.5);
-    
+
     //ridged noise shape
   float r = 0.0;
   uv *= cloudscale;
@@ -97,7 +99,7 @@ void main() {
         uv = m*uv + time;
     weight *= 0.7;
     }
-    
+
     //noise shape
   float f = 0.0;
     uv = p*vec2(u_resolution.x/u_resolution.y,1.0);
@@ -109,9 +111,9 @@ void main() {
         uv = m*uv + time;
     weight *= 0.6;
     }
-    
+
     f *= r + f;
-    
+
     //noise colour
     float c = 0.0;
     time = u_time * speed * 2.0;
@@ -124,7 +126,7 @@ void main() {
         uv = m*uv + time;
     weight *= 0.6;
     }
-    
+
     //noise ridge colour
     float c1 = 0.0;
     time = u_time * speed * 3.0;
@@ -137,25 +139,29 @@ void main() {
         uv = m*uv + time;
     weight *= 0.6;
     }
-  
+
     c += c1;
-    
+
     vec3 skycolour = mix(skycolour2, skycolour1, p.y);
     vec3 cloudcolour = vec3(1.1, 1.1, 0.9) * clamp((clouddark + cloudlight*c), 0.0, 1.0);
-  
+
     f = cloudcover + cloudalpha*f*r;
-    
+
     vec3 result = mix(skycolour, clamp(skytint * skycolour + cloudcolour, 0.0, 1.0), clamp(f + c, 0.0, 1.0));
-    
+
   gl_FragColor = vec4( result, 1.0 );
 }
       `)
     },
+
     
-    // Each layer has own canvas
-    // but p5 methods magically point to correct canvas so no need for canvas.background()
+    
+    
+    /**
+     * Actually apply the shader to the
+     * layer full screen
+     */
     draw () {
-      // set the uniform variables
       shader($shader)
       $shader.setUniform('u_resolution', [width, height])
       $shader.setUniform('u_time', millis() / 1000.0)
