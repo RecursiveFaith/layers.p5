@@ -37,7 +37,12 @@ Layers.create(() => {
         for (let y = -1; y < rows+2; y+=1) {
           if (x%2) {
             fill(0)
-            circle(x*$spotSize + (y%2) * $spotSize, y*$spotSize, $spotSize)
+
+            if (y%2) {
+              circle(x*$spotSize + (y%2) * $spotSize, y*$spotSize, $spotSize * sin(frameCount * 0.05))
+            } else {
+              circle(x*$spotSize + (y%2) * $spotSize, y*$spotSize, $spotSize * cos(frameCount * 0.05))
+            }
           }
         }
       }

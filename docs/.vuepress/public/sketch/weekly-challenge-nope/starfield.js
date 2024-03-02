@@ -9,7 +9,7 @@ Layers.create(() => {
     // You can also bind with MIDI through right click!
     menu: {
       numStars: {min: 400, max: 1200, onChange () {this.setup()}},
-      size: {min: () => minSize*.02, max: () => minSize*.05},
+      size: {min: () => minSize*.05, max: () => minSize*.15},
       speed: {min: 2, max: 40, default: random(2, 10)},
     },
     
@@ -17,10 +17,14 @@ Layers.create(() => {
     // Access with $stars within draw(), setup()
     // or with this.store.stars everywhere else
     $: {
-      stars: []
+      stars: [],
+      width: 2.5,
+      height: 4
     },
     
     setup () {
+      this.resize(width*$width, height*$height, false)
+
       $stars = []
       for (let i = 0; i < $numStars; i++) {
         $stars.push(new Star())
