@@ -8,16 +8,19 @@ Layers.create(() => {
     // These automatically convert into sliders
     // You can also bind with MIDI through right click!
     menu: {
-      spotSize: {min: () => minSize*.025, max: ()=> minSize*.1, onChange () {this.setup()}},
+      spotSize: {min: () => minSize*.1, max: ()=> minSize*.2, onChange () {this.setup()}},
     },
     
     // Non menu variables
     // Access with $stars within draw(), setup()
     // or with this.store.stars everywhere else
     $: {
+      width: 2.5,
+      height: 4
     },
     
     setup () {
+      this.resize(width*$width, height*$height, false)
     },
     
     // Each layer has own canvas

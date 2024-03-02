@@ -4,6 +4,8 @@ title: weekly-challenge-nope
 layers: 
   - '@weekly-challenge-nope/starfield'
   - '@weekly-challenge-nope/boardwalk'
+  - '@weekly-challenge-nope/sky'
+  - '@weekly-challenge-nope/world'
 ---
 <br>
 <!-- <div class="row">

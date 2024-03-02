@@ -360,22 +360,32 @@ export default class Layer {
   /**
    * Resize the canvas
    */
-  resize () {
-    const $target = this.getTarget()
-    const width = $target.clientWidth
-    const height = $target.clientHeight
+  resize (targetWidth = null, targetHeight = null, shouldRegenerate = true) {
+    let width, height
+    
+    if (targetWidth && targetHeight) {
+      width = targetWidth
+      height = targetHeight
+    } else {
+      const $target = this.getTarget()
+      width = $target.clientWidth
+      height = $target.clientHeight
+    }
+    
     this.width = width
     this.height = height
     this.canvas.resizeCanvas(width, height)
     this.offscreen.resizeCanvas(width, height)
 
-    this.generate(true)
-
-    if (this.type === 'filter' && !this.disabled) {
-      Layers.mergeLayers(this)
-      this.noLoop && this.throttledDraw()
-    } else if (!this.disabled) {
-      this.noLoop && this.throttledDraw()
+    if (shouldRegenerate) {
+      this.generate(true)
+ 
+      if (this.type === 'filter' && !this.disabled) {
+        Layers.mergeLayers(this)
+        this.noLoop && this.throttledDraw()
+      } else if (!this.disabled) {
+        this.noLoop && this.throttledDraw()
+      }
     }
   }
 
