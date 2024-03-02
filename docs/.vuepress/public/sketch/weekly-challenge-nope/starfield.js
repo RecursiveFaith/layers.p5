@@ -8,7 +8,7 @@ Layers.create(() => {
     // These automatically convert into sliders
     // You can also bind with MIDI through right click!
     menu: {
-      numStars: {min: 400, max: 1200, onChange () {this.setup()}},
+      numStars: {min: 800, max: 1600, onChange () {this.setup()}},
       size: {min: () => minSize*.05, max: () => minSize*.15},
       speed: {min: 2, max: 40, default: random(2, 10)},
     },
@@ -52,7 +52,7 @@ Layers.create(() => {
     constructor () {
       this.x = random(-width, width)
       this.y = random(-height, height)
-      this.z = random(width)
+      this.z = random(width*.1, width * 1)
       this.life = 0
       this.lastZ = this.z
     }
@@ -62,7 +62,7 @@ Layers.create(() => {
       if (this.z < 1) {
         this.x = random(-width/2, width/2)
         this.y = random(-height/2, height/2)
-        this.z = random(width, width*1.2)
+        this.z = random(width*.1, width * 1)
         this.lastZ = this.z
         this.life = 0
       }
@@ -75,16 +75,16 @@ Layers.create(() => {
       const r = map(this.z, 0, width, $size, 0)
       
       // Fade in
-      this.life += $speed/50 * .25
-      // fill(255, min(1, this.life))
-      fill(255)
+      this.life += 10
+      fill(255, 255, 255, min(this.life, 255))
+      // fill(255)
       ellipse(sx, sy, r, r)
       
       const px = map(this.x / this.lastZ, 0, 1, 0, width)
       const py = map(this.y / this.lastZ, 0, 1, 0, height)
       this.lastZ = this.z
       
-      stroke(255, min(1, this.life))
+      stroke(255, 255, 255, min(255, this.life))
       line(px, py, sx, sy)
     }
   }  

@@ -1,8 +1,9 @@
 {
-  "name": "layers.p5",
-  "version": "0.3.0",
+  "name": "@ozramos/layers.p5",
+  "version": "0.3.1",
   "description": "A layer-based p5.js framework with live editing and MIDI support",
   "main": "dist/layers.p5.js",
+  "private": false,
   "scripts": {
     "start": "vuepress dev docs",
     "new": "node ./node_scripts/newSketch.js",

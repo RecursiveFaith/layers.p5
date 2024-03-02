@@ -4,7 +4,7 @@
  * https://twitter.com/0xozram
  * https://github.com/layersp5/layers.p5
  * ---
- * @version 0.3.0
+ * @version 0.3.1
  * @license "Apache 2.0"
  * ---
  * This file was bundled with Rollup
@@ -26754,7 +26754,7 @@
     },
 
     // About
-    version: '0.3.0',
+    version: '0.3.1',
     curId: 0,
 
     // Menus
@@ -28036,7 +28036,7 @@
     }
 
     /**
-     * Sets up or re$s the layer to its default state
+     * Sets up or restores the layer to its default state
      */
     generate (callSetup) {
       // @fixme clean this up
@@ -28168,7 +28168,7 @@
         this.setup = function () {
           this.useGlobalContext();
           _setup.call(this, this.canvas, this.offscreen);
-          this.re$GlobalContext();
+          this.restoreGlobalContext();
         };
       }
       callSetup && this.callSetup();
@@ -28233,22 +28233,32 @@
     /**
      * Resize the canvas
      */
-    resize () {
-      const $target = this.getTarget();
-      const width = $target.clientWidth;
-      const height = $target.clientHeight;
+    resize (targetWidth = null, targetHeight = null, shouldRegenerate = true) {
+      let width, height;
+      
+      if (targetWidth && targetHeight) {
+        width = targetWidth;
+        height = targetHeight;
+      } else {
+        const $target = this.getTarget();
+        width = $target.clientWidth;
+        height = $target.clientHeight;
+      }
+      
       this.width = width;
       this.height = height;
       this.canvas.resizeCanvas(width, height);
       this.offscreen.resizeCanvas(width, height);
 
-      this.generate(true);
-
-      if (this.type === 'filter' && !this.disabled) {
-        Layers.mergeLayers(this);
-        this.noLoop && this.throttledDraw();
-      } else if (!this.disabled) {
-        this.noLoop && this.throttledDraw();
+      if (shouldRegenerate) {
+        this.generate(true);
+   
+        if (this.type === 'filter' && !this.disabled) {
+          Layers.mergeLayers(this);
+          this.noLoop && this.throttledDraw();
+        } else if (!this.disabled) {
+          this.noLoop && this.throttledDraw();
+        }
       }
     }
 
@@ -28278,7 +28288,7 @@
           
           thing.autodraw && thing.draw();
         });
-        this.re$GlobalContext();
+        this.restoreGlobalContext();
         this.frameCount++;
     
         this._lastX = this.x;
@@ -28322,7 +28332,7 @@
         }
       });
     }
-    re$GlobalContext () {
+    restoreGlobalContext () {
       Layers._globalContextLayer = null;
 
       p5OverridesList.forEach(key => {
@@ -29717,7 +29727,7 @@
   function p5PrototypeOverrides () {
     /**
      * setAttributes
-     * - Re$s attributes to the canvas, especially in reactive environments like Vue/React
+     * - Restores attributes to the canvas, especially in reactive environments like Vue/React
      */
     const _resetContext = globalThis.p5.RendererGL.prototype._resetContext;
     
@@ -29737,7 +29747,7 @@
       _resetContext.call(this, [options, callback]);
       pg = this._pInst;
 
-      // Re$ attributes
+      // Restore attributes
       Object.keys(attributes).forEach(key => {
         pg.elt.setAttribute(key, attributes[key]);
       });
@@ -29759,7 +29769,7 @@
    * Layers.p5 🎹🍄
    * A p5js library that helps you organize your code into layers
    * ---
-   * @version 0.3.0
+   * @version 0.3.1
    * @license "Apache 2.0" with the addendum that you cannot use this or its output for NFTs without permission
    */
 
