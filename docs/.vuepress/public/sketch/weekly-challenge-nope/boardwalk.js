@@ -37,9 +37,6 @@ which I learned from CodingTrain
 - [x] Get it to work
 - [x] Make it responsive/aspect ratio
 - [ ] Water/touch effect on portal
-- [ ] More!
-- [ ] Handsfree perspective parallax
-- [ ] Test on see through display
 
 # Layers.p5:
 https://github.com/ozramos/layers.p5
@@ -52,7 +49,7 @@ Layers.create(() => {
     id: 'boardwalk',
     menu: {
       spotSize: {
-        min: () => minSize*.02,
+        min: () => minSize*.025,
         max: ()=> minSize*.06,
         onChange () {this.setup()}
       },
