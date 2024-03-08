@@ -12,8 +12,8 @@ export default {
     banner: `/**
  * layers.p5.js
  * ---
- * https://twitter.com/0xozram
- * https://github.com/layersp5/layers.p5
+ * https://twitter.com/heyozramos
+ * https://github.com/ozramos/layers.p5
  * ---
  * @version ${pkg.version}
  * @license "Apache 2.0"

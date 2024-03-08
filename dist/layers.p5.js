@@ -1,8 +1,8 @@
 /**
  * layers.p5.js
  * ---
- * https://twitter.com/0xozram
- * https://github.com/layersp5/layers.p5
+ * https://twitter.com/heyozramos
+ * https://github.com/ozramos/layers.p5
  * ---
  * @version 0.3.1
  * @license "Apache 2.0"
@@ -28136,7 +28136,7 @@
       this.$ = globalThis.clone(this.opts.$);
 
       let bgMenu;
-      if (typeof this.presets?.bg === 'number') {
+      if (typeof this.presets.bg === 'number') {
         bgMenu = this.presets.bg;
       } else if (this.opts.bg) {
         bgMenu = this.opts.bg;
