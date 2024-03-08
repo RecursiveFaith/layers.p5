@@ -1,8 +1,5 @@
 <p><img src="./docs/.vuepress/public/layersp5-title.png" alt="Layers.p5" title="Layers.p5" style="width: 100%; position: relative; top: 5px"></p>
 
-
-<img src="https://github.com/layersp5/Layers.p5/assets/69949201/7d59086b-00cb-4187-b12f-c7a9ddd38386" width="100%">
-
 # A multi-canvas p5.js extension that adds MIDI binding and gesture controls, CLI tooling, and more
 
 <br>
@@ -11,28 +8,35 @@
 
 # Features
 
+
+
+
+
 <table style="width: 100%;">
   <tr>
     <td width="50%">
       <h4>Organize and stack code across multiple responsive <code>Layers</code>, files, and URLs</h4>
-      <img height=200 src="https://github.com/layersp5/Layers.p5/assets/69949201/49cb1f3b-c8b1-4710-ad97-996632492ce3">
+      <img height=200 src="https://github.com/ozramos/layers.p5/assets/156855378/f73e3743-e806-416a-8731-6b2bf1c8dcba">
     </td>
     <td width="50%">
       <h4>Edit variables by right clicking on a <code>Layer</code>'s pixels and map them to MIDI</h4>
-      <img height=200 src="https://github.com/layersp5/Layers.p5/assets/69949201/70aff103-32e5-47d1-bce3-1c288dbb05f4">
+      <img height=200 src="https://github.com/ozramos/layers.p5/assets/156855378/c37f633e-f747-4823-a63b-85df0054ba26">
     </td>
   </tr>
   <tr>
     <td width="50%">
       <h4>Right click to download stacks of Layers as GIFs and videos</h4>
-      <img height=200 src="https://github.com/layersp5/Layers.p5/assets/69949201/bd842819-db9b-4a4f-960a-874ef2b0e225">
+      <img height=200 src="https://github.com/ozramos/layers.p5/assets/156855378/985d0810-93bb-476b-9637-e2cdba83af89">
     </td>
     <td width="50%">
       <h4>Use via CDN or npm or clone the library directly to take advantage of the <abbr title="Command Line Interface">CLI</abbr></h4>
-      <img height=200 src="https://github.com/layersp5/Layers.p5/assets/69949201/88b094d8-a275-4e62-acb9-32310c9b702d">
+      <img height=200 src="https://github.com/ozramos/layers.p5/assets/156855378/8a8339bb-05b1-45c4-ada4-c5db2868e7ee">
     </td>
   </tr>
 </table>
+
+
+
 
 <br>
 <hr>
