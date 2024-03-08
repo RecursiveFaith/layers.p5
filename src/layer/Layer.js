@@ -24,7 +24,7 @@ export default class Layer {
       return
     }
     
-    this.presets = Layers.presets
+    this.presets = Layers.presets || {}
     this.maybeInit(opts)
   }
 
