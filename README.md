@@ -32,8 +32,6 @@
 </table>
 
 
-
-
 <br>
 <hr>
 <br>
@@ -103,12 +101,12 @@ new Layer({
 ## or with NPM
 From command line:
 ```bash
-npm i p5 layers.p5
+npm i p5 @ozramos/layers.p5
 ```
 Inside your app.js:
 ```js
 import 'p5'
-import Layers from 'Layers.p5'
+import Layers from '@ozramos/Layers.p5'
 ```
 
 ## or on [OpenProcessing.org](https://openprocessing.org)
