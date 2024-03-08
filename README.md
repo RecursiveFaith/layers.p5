@@ -8,10 +8,6 @@
 
 # Features
 
-
-
-
-
 <table style="width: 100%;">
   <tr>
     <td width="50%">
@@ -34,8 +30,6 @@
     </td>
   </tr>
 </table>
-
-
 
 
 <br>
@@ -101,22 +95,22 @@ new Layer({
 ## Either with HTML
 ```html
 <script src="https://unpkg.com/p5@1.6.0/lib/p5.min.js"></script>
-<script src="https://unpkg.com/layers.p5@0.3.0/dist/layers.p5.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ozramos/layers.p5@v0.3.1-beta/dist/layers.p5.js"></script>
 ```
 
 ## or with NPM
 From command line:
 ```bash
-npm i p5 layers.p5
+npm i p5 @ozramos/layers.p5
 ```
 Inside your app.js:
 ```js
 import 'p5'
-import Layers from 'Layers.p5'
+import Layers from '@ozramos/Layers.p5'
 ```
 
 ## or on [OpenProcessing.org](https://openprocessing.org)
-Add Layers.p5 to your Libraries: `https://unpkg.com/layers.p5@0.3.0/dist/layers.p5.js`
+Add Layers.p5 to your Libraries: `https://cdn.jsdelivr.net/gh/ozramos/layers.p5@v0.3.1-beta/dist/layers.p5.js`
 
 
 <br>
