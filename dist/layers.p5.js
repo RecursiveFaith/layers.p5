@@ -4,7 +4,7 @@
  * https://twitter.com/heyozramos
  * https://github.com/ozramos/layers.p5
  * ---
- * @version 0.3.1
+ * @version 0.3.2
  * @license "Apache 2.0"
  * ---
  * This file was bundled with Rollup
@@ -26754,7 +26754,7 @@
     },
 
     // About
-    version: '0.3.1',
+    version: '0.3.2',
     curId: 0,
 
     // Menus
@@ -27897,7 +27897,7 @@
         return
       }
       
-      this.presets = Layers.presets;
+      this.presets = Layers.presets || {};
       this.maybeInit(opts);
     }
 
@@ -29769,7 +29769,7 @@
    * Layers.p5 🎹🍄
    * A p5js library that helps you organize your code into layers
    * ---
-   * @version 0.3.1
+   * @version 0.3.2
    * @license "Apache 2.0" with the addendum that you cannot use this or its output for NFTs without permission
    */
 
