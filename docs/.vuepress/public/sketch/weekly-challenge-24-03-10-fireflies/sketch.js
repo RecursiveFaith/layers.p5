@@ -23,6 +23,16 @@ Layers.ready(() => {
       lidWidth: 0,
       fireflies: []
     },
+
+    stamp: {
+      clouds: 0,
+      moon: 0,
+      jar: 0,
+      lid: 0,
+      grass: 0,
+      moonRings: 0,
+      fireflies: 0,
+    },
     
     setup () {
 			// Let's paint!
@@ -35,6 +45,7 @@ Layers.ready(() => {
       brush.noStroke()
       brush.noField()
 
+      $fireflies = []
       $moonSize = random(minSize/10, minSize/4)
       $moonX = random(-width/2, width/2)
       $jarWidth = random(minSize*.25, minSize*.45)
@@ -45,16 +56,18 @@ Layers.ready(() => {
       $lidWidth = $jarWidth*random(.6, .9)
       $lidHeight = $jarHeight*random(.15, .3)
 
-      brush.reDraw()
-      brush.reBlend()
+      this.stamp.clouds = 0
+      this.stamp.moon = 0
+      this.stamp.jar = 0
+      this.stamp.lid = 0
+      this.stamp.grass = 0
+      this.stamp.moonRings = 0
+      this.stamp.fireflies = 0
     },
 
     draw () {
-
 			// Blueish-gray clouds
-      if (!$painted.clouds) {
-        $painted.clouds = 1
-
+      if(this.maybeStamp('clouds', () => {
         brush.fill(50, 50, random(155, 200), 255)
         brush.rect(-width/1.5, -height/1.5, width*1.5, height*1.5)
         // Ambient color
@@ -63,25 +76,22 @@ Layers.ready(() => {
 
         brush.reDraw()
         brush.reBlend()
-        return
-      }
+
+        return ++this.stamp.clouds
+      }, () => this.stamp.clouds < 1)) return;
 
       // Moon
-      if (!$painted.moon) {
-        $painted.moon = 1
-        
+      if (this.maybeStamp('moon', () => {
         brush.fill(255, 255, 255, 255)
         brush.circle($moonX, -height/2, $moonSize)
-
+  
         brush.reDraw()
         brush.reBlend()
-        return
-      }
+        return ++this.stamp.moon
+      }, () => this.stamp.moon < 1)) return;
 
       // Moon rings
-      if (!$painted.moonRings) {
-        $painted.moonRings = 1
-
+      if (this.maybeStamp('moonRings', () => {
         brush.noField()
         brush.noFill()
         let maxRingDist = random()>.8 ? random(minSize*.15, minSize*.35) : random(minSize*.15)
@@ -110,8 +120,8 @@ Layers.ready(() => {
 
         brush.reDraw()
         brush.reBlend()
-        return
-      }
+        return ++this.stamp.moonRings
+      }, () => this.stamp.moonRings < 1)) return;
 
 
 
@@ -119,9 +129,7 @@ Layers.ready(() => {
       // - n "layers" of grass
       // - each layer gets shorter but brighter
       // - occasionally a blade will catch the light as yellow
-      if (!$painted.grass) {
-        $painted.grass = 1
-
+      if (this.maybeStamp('grass', () => {
         brush.field('seabed')
         brush.field('curved')
         for (let n = 0; n < 3; n++) {
@@ -150,18 +158,15 @@ Layers.ready(() => {
 
         brush.reDraw()
         brush.reBlend()
-        return
-      }
+        return ++this.stamp.grass
+      }, () => this.stamp.grass < 1)) return;
 
 
 
       // Normal $Fireflies
       // - some will glow
       // - illuminates environment dust
-      if (!$painted.fireflies) {
-        $painted.fireflies = 1
-
-        $fireflies = []
+      if (this.maybeStamp('fireflies', () => {
         brush.noStroke()
         for (let i = 0; i < random(80, 200); i++) {
           const x = random(-width/1.75, width/1.75)
@@ -182,16 +187,15 @@ Layers.ready(() => {
         
         brush.reDraw()
         brush.reBlend()
-        return
-      }
+        return ++this.stamp.fireflies
+      }, () => this.stamp.fireflies < 1)) return;
 
 
 
 
 
       // Glass jar
-      if (!$painted.jar) {
-        $painted.jar = 1
+      if (this.maybeStamp('jar', () => {
         brush.pick('pen')
         brush.fill(155, 155, 255, $jarOpacity)
         
@@ -251,15 +255,13 @@ Layers.ready(() => {
 
         brush.reDraw()
         brush.reBlend()
-        return
-      }
+        return ++this.stamp.jar
+      }, () => this.stamp.jar < 1)) return;
 
 
       // Firefirelies inside jar
 			// Don't clear...restamp to create "blurred" chroma effect
-      if ($painted.fireflies === 1) {
-        $painted.fireflies = 2
-
+      if (this.maybeStamp('fireflies', () => {
         for (let i = 0; i < random(12, 40); i++) {
           const x = $jarX + random($jarWidth*.2, $jarWidth*.8)
           const y = $jarY + random(-$lidHeight*1.5, $jarHeight*.5)
@@ -328,8 +330,8 @@ Layers.ready(() => {
 
         brush.reDraw()
         brush.reBlend()
-        return
-      }
+        return ++this.stamp.fireflies
+      }, () => this.stamp.fireflies === 1)) return;
 
 
       // Grass
@@ -362,7 +364,7 @@ Layers.ready(() => {
 
         brush.reDraw()
         brush.reBlend()
-        return
+        return ++this.stamp.grass
       }      
     }
   })

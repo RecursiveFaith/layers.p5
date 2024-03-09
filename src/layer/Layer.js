@@ -100,6 +100,9 @@ export default class Layer {
       // Custom methods
       methods: {},
 
+      // Drawing
+      stamp: {},
+
       // Custom $
       $: {},
       menu: {}
@@ -192,6 +195,7 @@ export default class Layer {
     if (!this.offscreenRenderer) this.offscreenRenderer = this.opts.offscreenRenderer
     if (!this.stack) this.stack = this.opts.stack
     if (!this.things) this.things = this.opts.things
+    if (!this.stamp) this.stamp =this.opts.stamp
     
     // Always reset
     this.noLoop = this.opts.noLoop
@@ -388,6 +392,21 @@ export default class Layer {
       }
     }
   }
+
+  /**
+   * Run the callback
+   */
+  maybeStamp (stampID, callback, shouldRun = true) {
+    if (typeof shouldRun === 'function') shouldRun = shouldRun()
+    if (!shouldRun) return
+    
+    if (!this.stamp[stampID]) {
+      this.stamp[stampID] = 0
+    }
+    this.stamp[stampID] += !!(+callback())
+    return this.stamp[stampID]
+  }
+
 
   /**
    * Draw loop
