@@ -195,7 +195,6 @@ export default class Layer {
     if (!this.offscreenRenderer) this.offscreenRenderer = this.opts.offscreenRenderer
     if (!this.stack) this.stack = this.opts.stack
     if (!this.things) this.things = this.opts.things
-    if (!this.stamp) this.stamp =this.opts.stamp
     
     // Always reset
     this.noLoop = this.opts.noLoop
@@ -396,15 +395,19 @@ export default class Layer {
   /**
    * Run the callback
    */
-  maybeStamp (stampID, callback, shouldRun = true) {
-    if (typeof shouldRun === 'function') shouldRun = shouldRun()
-    if (!shouldRun) return
+  maybeStamp (opts) {
+    const {id, when=true, stamp} = opts
+
+    // Exit but don't run the trigger
+    if (!when) return false
+    if (!typeof $stamp[id]) $stamp[id] = 0
     
-    if (!this.stamp[stampID]) {
-      this.stamp[stampID] = 0
-    }
-    this.stamp[stampID] += !!(+callback())
-    return this.stamp[stampID]
+    let resp = stamp()
+    if (typeof resp === 'undefined') resp = true
+    if (typeof resp !== 'number') resp = +resp
+    $stamp[id] += resp
+
+    return $stamp[id]
   }
 
 
