@@ -393,25 +393,31 @@ export default class Layer {
   }
 
   /**
-   * Run the stamp callback when the trigger is called
+   * Batch a draw bunch of draws together, incrementing a batch counter
+   * - Once the trigger is met, the stamp function is called
+   * - If stamp method returns null or true, the draw is called
+   * - If stamp method returns false, the draw is skipped
+   * 
    * @param opts.id The id of the stamp counter to incremenet
    * @param opts.trigger {Boolean|Function} True to trigger the stamp, False to skip
    * @param opts.stamp {function} The stamp function to be called the trigger is true
+   * 
+   * @returns {number} The stamp counter
    */
-  maybeStamp (opts) {
-    const {id, trigger=false, stamp=()=>true} = opts
+  batchDraw (opts) {
+    const {id, trigger=false, draw=()=>true} = opts
 
     // Exit but don't run the trigger
     if (typeof trigger === 'function') trigger = trigger()
     if (!trigger) return false
-    if (!typeof $stamp[id]) $stamp[id] = 0
+    if (!typeof $batch[id]) $batch[id] = 0
     
-    let resp = stamp()
+    let resp = draw()
     if (typeof resp === 'undefined') resp = true
     if (typeof resp !== 'number') resp = +resp
-    $stamp[id] += resp
+    $batch[id] += resp
 
-    return $stamp[id]
+    return $batch[id]
   }
 
 

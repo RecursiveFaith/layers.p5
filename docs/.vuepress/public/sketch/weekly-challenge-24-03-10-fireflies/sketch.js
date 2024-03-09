@@ -21,7 +21,7 @@ Layers.ready(() => {
       lidWidth: 0,
       fireflies: [],
 
-      stamp: {
+      batch: {
         clouds: 0,
         moon: 0,
         jar: 0,
@@ -58,24 +58,24 @@ Layers.ready(() => {
       $lidHeight = $jarHeight*random(.15, .3)
 
       // @todo Automatically reset these
-      $stamp.clouds = 0
-      $stamp.moon = 0
-      $stamp.jar = 0
-      $stamp.lid = 0
-      $stamp.grassLayer = 0
-      $stamp.moonRings = 0
-      $stamp.fireflies1 = 0
-      $stamp.fireflies1Total = ~~random(5, 20)
-      $stamp.fireflies2 = 0
-      $stamp.fireflies2Total = ~~random(2, 6)
+      $batch.clouds = 0
+      $batch.moon = 0
+      $batch.jar = 0
+      $batch.lid = 0
+      $batch.grassLayer = 0
+      $batch.moonRings = 0
+      $batch.fireflies1 = 0
+      $batch.fireflies1Total = ~~random(5, 20)
+      $batch.fireflies2 = 0
+      $batch.fireflies2Total = ~~random(2, 6)
     },
 
     draw () {
 			// Blueish-gray clouds
-      if(this.maybeStamp({
+      if(this.batchDraw({
         id: 'clouds',
-        trigger: $stamp.clouds === 0,
-        stamp: () => {
+        trigger: $batch.clouds === 0,
+        draw: () => {
           brush.fill(50, 50, random(155, 200), 255)
           brush.rect(-width/1.5, -height/1.5, width*1.5, height*1.5)
           // Ambient color
@@ -88,10 +88,10 @@ Layers.ready(() => {
       })) return;
 
       // Moon
-      if (this.maybeStamp({
+      if (this.batchDraw({
         id: 'moon',
-        trigger: $stamp.moon < 1,
-        stamp: () => {
+        trigger: $batch.moon < 1,
+        draw: () => {
           brush.fill(255, 255, 255, 255)
           brush.circle($moonX, -height/2, $moonSize)
     
@@ -103,10 +103,10 @@ Layers.ready(() => {
       })) return;
 
       // Moon rings
-      if (this.maybeStamp({
+      if (this.batchDraw({
         id: 'moonRings',
-        trigger: $stamp.moonRings < 1,
-        stamp: () => {
+        trigger: $batch.moonRings < 1,
+        draw: () => {
           brush.noField()
           brush.noFill()
           let maxRingDist = random()>.8 ? random(minSize*.15, minSize*.35) : random(minSize*.15)
@@ -144,32 +144,32 @@ Layers.ready(() => {
       // - n "layers" of grass
       // - each layer gets shorter but brighter
       // - occasionally a blade will catch the light as yellow
-      if (this.maybeStamp({
+      if (this.batchDraw({
         id: 'grassLayer',
-        trigger: $stamp.grassLayer < 3,
-        stamp: () => {
+        trigger: $batch.grassLayer < 3,
+        draw: () => {
           brush.field('seabed')
           brush.field('curved')
-          let grassCount = 200-$stamp.grassLayer*30
+          let grassCount = 200-$batch.grassLayer*30
                   
           for (let i = 0; i < grassCount; i++) {
-            if (!$stamp.grassLayer && random()>.25) {
+            if (!$batch.grassLayer && random()>.25) {
               brush.pick('marker')
             } else {
               brush.pick('pen')
             }
             brush.strokeWeight(random(minSize*.0025, minSize*.025))
             
-            if ($stamp.grassLayer < 2 && random(25) < 1) {
+            if ($batch.grassLayer < 2 && random(25) < 1) {
               const col = random(100, 200)
               brush.stroke(col, col, 0)
             } else {
-              brush.stroke(random(10, 40)+$stamp.grassLayer*8, random(30, 60)+$stamp.grassLayer*12, 0)
+              brush.stroke(random(10, 40)+$batch.grassLayer*8, random(30, 60)+$batch.grassLayer*12, 0)
             }
 
             const initAngle = PI*.5+random(-PI*.25, PI*.25)
             brush.beginStroke('curve', width/2-i/grassCount*width, height/2)
-            brush.segment(initAngle, random(minSize*.15, minSize*.5)-$stamp.grassLayer*minSize*.075, 1)
+            brush.segment(initAngle, random(minSize*.15, minSize*.5)-$batch.grassLayer*minSize*.075, 1)
             brush.endStroke(initAngle + random(-PI*.35, PI*.35))
           }
           
@@ -183,10 +183,10 @@ Layers.ready(() => {
       // Normal $Fireflies
       // - some will glow
       // - illuminates environment dust
-      if (this.maybeStamp({
+      if (this.batchDraw({
         id: 'fireflies1',
-        trigger: $stamp.fireflies1 < $stamp.fireflies1Total,
-        stamp: () => {
+        trigger: $batch.fireflies1 < $batch.fireflies1Total,
+        draw: () => {
           brush.noStroke()
           for (let i = 0; i < random(4, 20); i++) {
             const x = random(-width/1.65, width/1.65)
@@ -218,10 +218,10 @@ Layers.ready(() => {
 
 
       // Glass jar
-      if (this.maybeStamp({
+      if (this.batchDraw({
         id: 'jar',
-        trigger: $stamp.jar < 1,
-        stamp: () => {
+        trigger: $batch.jar < 1,
+        draw: () => {
           brush.pick('pen')
           brush.fill(155, 155, 255, $jarOpacity)
           
@@ -287,10 +287,10 @@ Layers.ready(() => {
 
       // Firefirelies inside jar
 			// Don't clear...restamp to create "blurred" chroma effect
-      if (this.maybeStamp({
+      if (this.batchDraw({
         id: 'fireflies2',
-        trigger: $stamp.fireflies2 < $stamp.fireflies2Total,
-        stamp: () => {
+        trigger: $batch.fireflies2 < $batch.fireflies2Total,
+        draw: () => {
           for (let i = 0; i < random(4, 12); i++) {
             const x = $jarX + random($jarWidth*.2, $jarWidth*.8)
             const y = $jarY + random(-$lidHeight*1.5, $jarHeight*.5)
@@ -321,10 +321,10 @@ Layers.ready(() => {
       // - n "layers" of grass
       // - each layer gets shorter but brighter
       // - occasionally a blade will catch the light as yellow
-      if (this.maybeStamp({
+      if (this.batchDraw({
         id: 'grassLayer',
-        trigger: $stamp.grassLayer === 3,
-        stamp: () => {
+        trigger: $batch.grassLayer === 3,
+        draw: () => {
           brush.field('seabed')
           brush.field('curved')
           for (let n = 0; n < 1; n++) {
