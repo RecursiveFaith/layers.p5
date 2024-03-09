@@ -36,7 +36,14 @@
 <hr>
 <br>
 
+# Why Layers.p5
+
+> Coming soon
+
 # Getting Started
+
+> Coming soon
+
 ## Normally with p5.js you have one `setup()` and `draw()`
 ```html
 <script>
@@ -95,7 +102,7 @@ new Layer({
 ## Either with HTML
 ```html
 <script src="https://unpkg.com/p5@1.6.0/lib/p5.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/ozramos/layers.p5@v0.3.2-beta/dist/layers.p5.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ozramos/layers.p5@v0.3.3-beta/dist/layers.p5.js"></script>
 ```
 
 ## or with NPM
@@ -110,7 +117,7 @@ import Layers from '@ozramos/Layers.p5'
 ```
 
 ## or on [OpenProcessing.org](https://openprocessing.org)
-Add Layers.p5 to your Libraries: `https://cdn.jsdelivr.net/gh/ozramos/layers.p5@v0.3.2-beta/dist/layers.p5.js`
+Add Layers.p5 to your Libraries: `https://cdn.jsdelivr.net/gh/ozramos/layers.p5@v0.3.3-beta/dist/layers.p5.js`
 
 
 <br>

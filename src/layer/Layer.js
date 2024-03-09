@@ -393,13 +393,17 @@ export default class Layer {
   }
 
   /**
-   * Run the callback
+   * Run the stamp callback when the trigger is called
+   * @param opts.id The id of the stamp counter to incremenet
+   * @param opts.trigger {Boolean|Function} True to trigger the stamp, False to skip
+   * @param opts.stamp {function} The stamp function to be called the trigger is true
    */
   maybeStamp (opts) {
-    const {id, when=true, stamp} = opts
+    const {id, trigger=false, stamp=()=>true} = opts
 
     // Exit but don't run the trigger
-    if (!when) return false
+    if (typeof trigger === 'function') trigger = trigger()
+    if (!trigger) return false
     if (!typeof $stamp[id]) $stamp[id] = 0
     
     let resp = stamp()

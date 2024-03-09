@@ -4,7 +4,7 @@
  * https://twitter.com/heyozramos
  * https://github.com/ozramos/layers.p5
  * ---
- * @version 0.3.2
+ * @version 0.3.3
  * @license "Apache 2.0"
  * ---
  * This file was bundled with Rollup
@@ -26754,7 +26754,7 @@
     },
 
     // About
-    version: '0.3.2',
+    version: '0.3.3',
     curId: 0,
 
     // Menus
@@ -27973,6 +27973,9 @@
         // Custom methods
         methods: {},
 
+        // Drawing
+        stamp: {},
+
         // Custom $
         $: {},
         menu: {}
@@ -28261,6 +28264,29 @@
         }
       }
     }
+
+    /**
+     * Run the stamp callback when the trigger is called
+     * @param opts.id The id of the stamp counter to incremenet
+     * @param opts.trigger {Boolean|Function} True to trigger the stamp, False to skip
+     * @param opts.stamp {function} The stamp function to be called the trigger is true
+     */
+    maybeStamp (opts) {
+      const {id, trigger=false, stamp=()=>true} = opts;
+
+      // Exit but don't run the trigger
+      if (typeof trigger === 'function') trigger = trigger();
+      if (!trigger) return false
+      if (!typeof $stamp[id]) $stamp[id] = 0;
+      
+      let resp = stamp();
+      if (typeof resp === 'undefined') resp = true;
+      if (typeof resp !== 'number') resp = +resp;
+      $stamp[id] += resp;
+
+      return $stamp[id]
+    }
+
 
     /**
      * Draw loop
@@ -29769,7 +29795,7 @@
    * Layers.p5 🎹🍄
    * A p5js library that helps you organize your code into layers
    * ---
-   * @version 0.3.2
+   * @version 0.3.3
    * @license "Apache 2.0" with the addendum that you cannot use this or its output for NFTs without permission
    */
 

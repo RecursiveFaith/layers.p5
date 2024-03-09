@@ -16,8 +16,6 @@ Layers.ready(() => {
       jarY: 0,
       jarWidth: 0,
       jarHeight: 0,
-      jarX: 0,
-      jarY: 0,
       jarOpacity: 0,
       lidHeight: 0,
       lidWidth: 0,
@@ -76,7 +74,7 @@ Layers.ready(() => {
 			// Blueish-gray clouds
       if(this.maybeStamp({
         id: 'clouds',
-        when: $stamp.clouds === 0,
+        trigger: $stamp.clouds === 0,
         stamp: () => {
           brush.fill(50, 50, random(155, 200), 255)
           brush.rect(-width/1.5, -height/1.5, width*1.5, height*1.5)
@@ -92,7 +90,7 @@ Layers.ready(() => {
       // Moon
       if (this.maybeStamp({
         id: 'moon',
-        when: $stamp.moon < 1,
+        trigger: $stamp.moon < 1,
         stamp: () => {
           brush.fill(255, 255, 255, 255)
           brush.circle($moonX, -height/2, $moonSize)
@@ -107,7 +105,7 @@ Layers.ready(() => {
       // Moon rings
       if (this.maybeStamp({
         id: 'moonRings',
-        when: $stamp.moonRings < 1,
+        trigger: $stamp.moonRings < 1,
         stamp: () => {
           brush.noField()
           brush.noFill()
@@ -148,7 +146,7 @@ Layers.ready(() => {
       // - occasionally a blade will catch the light as yellow
       if (this.maybeStamp({
         id: 'grassLayer',
-        when: $stamp.grassLayer < 3,
+        trigger: $stamp.grassLayer < 3,
         stamp: () => {
           brush.field('seabed')
           brush.field('curved')
@@ -187,7 +185,7 @@ Layers.ready(() => {
       // - illuminates environment dust
       if (this.maybeStamp({
         id: 'fireflies1',
-        when: $stamp.fireflies1 < $stamp.fireflies1Total,
+        trigger: $stamp.fireflies1 < $stamp.fireflies1Total,
         stamp: () => {
           brush.noStroke()
           for (let i = 0; i < random(4, 20); i++) {
@@ -222,7 +220,7 @@ Layers.ready(() => {
       // Glass jar
       if (this.maybeStamp({
         id: 'jar',
-        when: $stamp.jar < 1,
+        trigger: $stamp.jar < 1,
         stamp: () => {
           brush.pick('pen')
           brush.fill(155, 155, 255, $jarOpacity)
@@ -291,7 +289,7 @@ Layers.ready(() => {
 			// Don't clear...restamp to create "blurred" chroma effect
       if (this.maybeStamp({
         id: 'fireflies2',
-        when: $stamp.fireflies2 < $stamp.fireflies2Total,
+        trigger: $stamp.fireflies2 < $stamp.fireflies2Total,
         stamp: () => {
           for (let i = 0; i < random(4, 12); i++) {
             const x = $jarX + random($jarWidth*.2, $jarWidth*.8)
@@ -325,7 +323,7 @@ Layers.ready(() => {
       // - occasionally a blade will catch the light as yellow
       if (this.maybeStamp({
         id: 'grassLayer',
-        when: $stamp.grassLayer === 3,
+        trigger: $stamp.grassLayer === 3,
         stamp: () => {
           brush.field('seabed')
           brush.field('curved')
